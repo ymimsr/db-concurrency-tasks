@@ -3,8 +3,8 @@ package com.ymimsr.task_1;
 public class Solution {
 
     public void start(int linesNum) {
-        Printer parentPrinter = new Printer();
-        Printer childPrinter = new Printer(System.currentTimeMillis() / 2);
+        RandomPrinter parentPrinter = new RandomPrinter();
+        RandomPrinter childPrinter = new RandomPrinter(System.currentTimeMillis() / 2);
         parentPrinter.setPrefix("Parent thread, ");
         childPrinter.setPrefix("Child thread, ");
 
@@ -14,10 +14,10 @@ public class Solution {
 
     private static class PrintRunnable implements Runnable {
 
-        private final Printer printer;
+        private final RandomPrinter printer;
         private final int linesNum;
 
-        public PrintRunnable(Printer printer, int linesNum) {
+        public PrintRunnable(RandomPrinter printer, int linesNum) {
             this.printer = printer;
             this.linesNum = linesNum;
         }

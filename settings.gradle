@@ -1,4 +1,5 @@
 rootProject.name = 'db_concurrency_tasks'
 include 'task_1'
 include 'task_2'
+include 'task_3'
 

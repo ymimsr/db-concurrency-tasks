@@ -1,19 +1,19 @@
-package com.ymimsr.task_2;
+package com.ymimsr.task_1;
 
 import java.util.Random;
 
-public class Printer {
+public class RandomPrinter {
 
     private final Random random;
     private String prefix;
     private int lineLength = 10;
 
-    public Printer(long seed) {
+    public RandomPrinter(long seed) {
         this.random = new Random();
         random.setSeed(seed);
     }
 
-    public Printer() {
+    public RandomPrinter() {
         this((int) System.currentTimeMillis());
     }
 
