@@ -7,6 +7,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="db_concurrency_tasks.task_1.main" options="--add-modules java.base" />
       <module name="db_concurrency_tasks.task_2.main" options="--add-modules java.base" />
+      <module name="db_concurrency_tasks.task_3.main" options="--add-modules java.base" />
     </option>
   </component>
 </project>
