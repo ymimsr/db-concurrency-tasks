@@ -10,6 +10,7 @@
       <module name="db_concurrency_tasks.task_3.main" options="--add-modules java.base" />
       <module name="db_concurrency_tasks.task_4.main" options="--add-modules java.base" />
       <module name="db_concurrency_tasks.task_5.main" options="--add-modules java.base" />
+      <module name="db_concurrency_tasks.task_6.main" options="--add-modules java.base" />
     </option>
   </component>
 </project>
