@@ -13,10 +13,10 @@ public class Solution {
 
     private static double countPi(int threadNum, int iterations) {
         List<FutureTask<Double>> taskList = new ArrayList<>();
+        int[] partition = getPartition(threadNum, iterations);
+
         for (int i = 0; i < threadNum; i++) {
-            Callable<Double> piCalculator = new PiCalculator(
-                    i * (iterations / threadNum),
-                    (i + 1) * (iterations / threadNum));
+            Callable<Double> piCalculator = new PiCalculator(partition[i], partition[i + 1]);
             FutureTask<Double> calculationTask = new FutureTask<>(piCalculator);
             taskList.add(calculationTask);
 
@@ -33,6 +33,16 @@ public class Solution {
         }
 
         return 4 * sum;
+    }
+
+    private static int[] getPartition(int threadNum, int iterations) {
+        int[] partition = new int[threadNum + 1];
+        for (int i = 0; i < threadNum; i++) {
+            partition[i] = i * (iterations / threadNum);
+        }
+        partition[threadNum] = iterations;
+
+        return partition;
     }
 
     private static class PiCalculator implements Callable<Double> {

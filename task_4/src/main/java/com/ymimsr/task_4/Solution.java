@@ -25,10 +25,13 @@ public class Solution {
         }
 
         @Override
-        public void run() {
-            while (!Thread.currentThread().isInterrupted()) {
-                printer.printSingleLine();
-            }
+        public void run()  {
+            try {
+                while (true) {
+                    printer.printSingleLine();
+                    Thread.sleep(0);
+                }
+            } catch (InterruptedException ignored) {}
         }
 
     }

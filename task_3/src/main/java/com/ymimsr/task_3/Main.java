@@ -15,7 +15,7 @@ public class Main {
             }
         }
 
-        solution.start(threadNum, text);
+        solution.start(text);
     }
 
     private static String getRandomString(int lineLength) {

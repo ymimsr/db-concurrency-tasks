@@ -2,8 +2,8 @@ package com.ymimsr.task_3;
 
 public class Solution {
 
-    public void start(int threadNum, String[][] args) {
-        for (int i = 0; i < threadNum; i++) {
+    public void start(String[][] args) {
+        for (int i = 0; i < args.length; i++) {
             Printer printer = new Printer("Thread #" + (i + 1) + ": ");
             new Thread(new PrintRunnable(printer, args[i])).start();
         }
