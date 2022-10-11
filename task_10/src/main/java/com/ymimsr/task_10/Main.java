@@ -1,4 +1,4 @@
-package com.ymimsr;
+package com.ymimsr.task_10;
 
 public class Main {
 
