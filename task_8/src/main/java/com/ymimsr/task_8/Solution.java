@@ -13,7 +13,7 @@ public class Solution {
     private final int threadNum;
     private final List<FutureTask<Double>> taskList = new ArrayList<>();
 
-    private AtomicBoolean isCounting = new AtomicBoolean(false);
+    private final AtomicBoolean isCounting = new AtomicBoolean(false);
 
     public Solution(int threadNum) {
         this.threadNum = threadNum;
