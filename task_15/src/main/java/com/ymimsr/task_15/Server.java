@@ -28,7 +28,9 @@ public class Server {
                 PrintWriter out = new PrintWriter(toSocket.getOutputStream())
                 ) {
             while (fromSocket.isConnected() && toSocket.isConnected()) {
-                out.println(in.readLine());
+                String line = in.readLine();
+                System.out.println("Server has received following text: " + line);
+                out.println(line);
             }
         } catch (IOException e) {
             e.printStackTrace();

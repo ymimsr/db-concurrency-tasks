@@ -10,24 +10,24 @@ public class Main {
 
         new Thread(() -> {
             for (int i = 1; i <= 10; i++) {
-                if (sem2.tryAcquire())
-                    sem1.release();
+                try {
+                    sem1.acquire();
 
-                System.out.println("Child Thread Output: " + i);
+                    System.out.println("Child Thread Output: " + i);
 
-                if (sem1.tryAcquire())
                     sem2.release();
+                } catch (InterruptedException ignored) {}
             }
         }).start();
 
         for (int i = 1; i <= 10; i++) {
-            if (sem2.tryAcquire())
+            try {
+                sem2.acquire();
+
+                System.out.println("Parent Thread Output: " + i);
+
                 sem1.release();
-
-            System.out.println("Parent Thread Output: " + i);
-
-            if (sem1.tryAcquire())
-                sem2.release();
+            } catch (InterruptedException ignored) {}
         }
     }
 

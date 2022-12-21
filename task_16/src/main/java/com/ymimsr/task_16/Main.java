@@ -23,7 +23,7 @@ public class Main {
                 while ((line = httpReader.readLine()) != null) {
                     if (i == 25) {
                         i = 0;
-                        System.out.println("Press any return to scroll down.");
+                        System.out.println("Press return to scroll down.");
                         consoleReader.readLine();
                     }
 

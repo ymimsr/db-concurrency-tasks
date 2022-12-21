@@ -12,6 +12,8 @@ public class Solution {
 
     private final AtomicBoolean isCounting = new AtomicBoolean(false);
 
+    private final static int BLOCK_SIZE = 100;
+
     public Solution(int threadNum) {
         this.threadNum = threadNum;
     }
@@ -19,7 +21,7 @@ public class Solution {
     public void startCountingPi() {
         isCounting.set(true);
         for (int i = 0; i < threadNum; i++) {
-            Callable<Double> subSumCalculator = new PiCalculator(threadNum, i);
+            Callable<Double> subSumCalculator = new PiCalculator(i * BLOCK_SIZE, BLOCK_SIZE, threadNum * BLOCK_SIZE);
             FutureTask<Double> subSumTask = new FutureTask<>(subSumCalculator);
             taskList.add(subSumTask);
 
@@ -43,20 +45,26 @@ public class Solution {
 
     private class PiCalculator implements Callable<Double> {
 
+        private int startI;
+        private final int blockSize;
         private final int step;
-        private final int startI;
 
-        public PiCalculator(int step, int startI) {
-            this.step = step;
+        public PiCalculator(int startI, int blockSize, int step) {
             this.startI = startI;
+            this.blockSize = blockSize;
+            this.step = step;
         }
 
         @Override
         public Double call() {
             double sum = 0.0;
 
-            for (int i = startI; isCounting.get(); i += step) {
-                sum += Math.pow(-1, i) / (1 + 2 * i);
+            while (isCounting.get()) {
+                int endI = startI + blockSize;
+                for (int i = startI; i < endI; i++) {
+                    sum += Math.pow(-1, i) / (1 + 2 * i);
+                }
+                startI += step;
             }
 
             return sum;

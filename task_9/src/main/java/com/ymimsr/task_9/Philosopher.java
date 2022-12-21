@@ -31,6 +31,9 @@ public class Philosopher implements Runnable {
         System.out.println(name + " sat at the table.");
         synchronized (leftFork) {
             System.out.println(name + " has taken left fork.");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) { e.printStackTrace(); }
             synchronized (rightFork) {
                 System.out.println(name + " has taken right fork");
 
