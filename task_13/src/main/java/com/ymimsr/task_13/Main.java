@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
-    private static final int SPAGHETTI_AMOUNT = 3;
+    private static final int SPAGHETTI_AMOUNT = 100;
 
     public static void main(String[] args) {
         Fork fork1 = new Fork();

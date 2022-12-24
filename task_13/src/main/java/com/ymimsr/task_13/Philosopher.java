@@ -29,6 +29,7 @@ public class Philosopher implements Runnable {
         }
     }
 
+    // TODO: remake;
     private void eat() {
         System.out.println(name + " sat at the table.");
         synchronized (forksMutex) {
