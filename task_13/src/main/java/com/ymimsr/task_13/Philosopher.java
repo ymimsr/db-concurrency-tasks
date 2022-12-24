@@ -4,8 +4,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Philosopher implements Runnable {
 
-    private static final int EAT_MS_RANGE = 1000;
-    private static final int THINK_MS_RANGE = 2000;
+    private static final int EAT_MS_RANGE = 2000;
+    private static final int THINK_MS_RANGE = 1000;
 
     private final String name;
     private final AtomicInteger spaghettiLeft;
@@ -32,39 +32,40 @@ public class Philosopher implements Runnable {
     // TODO: remake;
     private void eat() {
         System.out.println(name + " sat at the table.");
-        synchronized (forksMutex) {
-            try {
-                while (!leftFork.isFree()) {
-                    Thread.sleep(1);
-                }
 
-                takeLeftFork();
+        tryToEat();
+    }
 
-                if (rightFork.isFree()) {
-                    takeRightFork();
-
-                    // Eating
-                    if (spaghettiLeft.getAndDecrement() <= 0) {
-                        System.out.println(name + " didn't get any spaghetti");
-
-                        freeRightFork();
+    private void tryToEat() {
+        try {
+            synchronized (forksMutex) {
+                if (leftFork.isFree()) {
+                    takeLeftFork();
+                    if (rightFork.isFree()) {
+                        takeRightFork();
+                        forksMutex.notifyAll();
+                    } else {
                         freeLeftFork();
-                        return;
+                        forksMutex.wait();
+                        tryToEat();
                     }
-                    System.out.println(name + " has started eating.");
-                    Thread.sleep((int) (Math.random() * EAT_MS_RANGE));
-
-                    System.out.println(name + " has finished eating.");
-
-                    freeRightFork();
-                    freeLeftFork();
                 } else {
-                    freeLeftFork();
-                    eat();
+                    forksMutex.wait();
+                    tryToEat();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+
+            System.out.println(name + " obtained both forks.");
+
+            System.out.println(name + " starts eating.");
+            Thread.sleep((int) (Math.random() * EAT_MS_RANGE));
+            spaghettiLeft.decrementAndGet();
+            System.out.println(name + " finished eating.");
+
+            freeLeftFork();
+            freeRightFork();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
     }
 
